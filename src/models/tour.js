@@ -7,7 +7,10 @@ const getAllTours = async () => {
 }
 
 const getMatchesByTourName = async params => {
-    const statement = 'select * from matches left join tours on matches.tourId = tours.id where tours.name = ?';
+    const statement = `select matches.id as matchId, matches.name as matchName, 
+    matches.format as format, matches.startTime 
+    from matches inner join tours on matches.tourId = tours.id 
+    where tours.name = ?`;
     const parameters = [ params.name ];
     return await mysql.query(statement, parameters);
 }
